@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Café com Coragem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: coluna única de leitura em celular, blocos separados por filetes finos, botão dourado no topo e repetido no fim. */
+:root {
+  --bg: #F3F5F2;
+  --ink: #11302F;
+  --muted: #4C6463;
+  --card: #FFFFFF;
+  --line: #D5DDD9;
+  --brand: #0F4C4A;
+  --on-brand: #FFFFFF;
+  --amber: #D9822B;
+  --gold: #C9A455;
+  --gold-ink: #2B2314;
+  --beige: #EADFC8;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1B1A;
+    --ink: #E8F0EE;
+    --muted: #9DB5B2;
+    --card: #152625;
+    --line: #26403E;
+    --brand: #6FD1C6;
+    --on-brand: #06201E;
+    --amber: #E8A24F;
+    --gold: #D8B46B;
+    --gold-ink: #231C0E;
+    --beige: #2A2519;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1B1A;
+  --ink: #E8F0EE;
+  --muted: #9DB5B2;
+  --card: #152625;
+  --line: #26403E;
+  --brand: #6FD1C6;
+  --on-brand: #06201E;
+  --amber: #E8A24F;
+  --gold: #D8B46B;
+  --gold-ink: #231C0E;
+  --beige: #2A2519;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+.wrap { max-width: 640px; margin: 0 auto; padding: 24px 20px 56px; display: flex; flex-direction: column; gap: 36px; }
+.brand { font-family: var(--font-display); font-weight: 700; letter-spacing: .02em; font-size: 15px; color: var(--muted); text-transform: uppercase; }
+h1, h2 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+h1 { font-size: clamp(40px, 11vw, 60px); font-weight: 700; }
+h2 { font-size: 26px; font-weight: 700; }
+p { margin: 0; }
+.hero { display: flex; flex-direction: column; gap: 20px; }
+.cup { width: 96px; height: auto; }
+.lead { font-size: 21px; max-width: 34ch; }
+.intro { max-width: 46ch; color: var(--muted); }
+.facts { display: grid; gap: 0; border-top: 1px solid var(--line); margin: 0; }
+.fact { display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.fact dt { color: var(--muted); font-size: 15px; text-transform: uppercase; letter-spacing: .04em; padding-top: 3px; }
+.fact dd { margin: 0; font-weight: 600; }
+.fact small { display: block; font-weight: 400; color: var(--muted); font-size: 16px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 54px; padding: 12px 22px; border-radius: 12px;
+  font-family: var(--font-body); font-weight: 600; font-size: 18px; text-decoration: none;
+  background: var(--gold); color: var(--gold-ink); border: 2px solid var(--gold);
+}
+.btn.soft { background: var(--beige); color: var(--ink); border-color: var(--gold); }
+.btn:focus-visible, a:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+.section { display: flex; flex-direction: column; gap: 16px; }
+.items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--line); }
+.items li { padding: 14px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.items strong { font-weight: 600; }
+.items span { color: var(--muted); font-size: 17px; }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: s; display: flex; flex-direction: column; gap: 14px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: start; }
+.steps li::before {
+  content: counter(s); width: 36px; height: 36px; border-radius: 50%;
+  background: var(--gold); color: var(--gold-ink);
+  display: grid; place-items: center; font-family: var(--font-display); font-weight: 700;
+}
+.price { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.price .amount { font-family: var(--font-display); font-size: 40px; font-weight: 700; line-height: 1; }
+.price p { color: var(--muted); font-size: 17px; }
+.price p strong { color: var(--ink); }
+.muted { color: var(--muted); font-size: 16px; }
+.number { font-variant-numeric: tabular-nums; }
+footer { border-top: 1px solid var(--line); padding-top: 18px; display: flex; flex-direction: column; gap: 6px; }
+@media (prefers-reduced-motion: no-preference) { .btn { transition: transform .15s ease; } .btn:active { transform: scale(.98); } }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hero">
+    <div class="brand">Coragem Lab</div>
+    <svg class="cup" viewBox="0 0 96 80" role="img" aria-label="Xícara de café sobre um pires">
+      <path d="M26 6 Q22 14 26 22 M38 2 Q34 12 38 22 M50 6 Q46 14 50 22" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+      <path d="M12 30 H66 V48 Q66 66 39 66 Q12 66 12 48 Z" fill="var(--gold)" fill-opacity=".25" stroke="var(--gold)" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M66 36 H72 Q84 36 84 47 Q84 58 72 58 H65" fill="none" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4 72 H76" fill="none" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round"/>
+    </svg>
+    <h1>Café com Coragem</h1>
+    <p class="lead">Um encontro presencial para brasileiras pensarem, juntas, no próximo passo.</p>
+    <p class="intro">O fim do ano é o momento em que todo mundo começa a planejar o ano seguinte. Este café reserva uma manhã para você fazer isso em boa companhia.</p>
+    <dl class="facts">
+      <div class="fact"><dt>Quando</dt><dd>Sábado, 5 de dezembro<small class="number">às 10h</small></dd></div>
+      <div class="fact"><dt>Onde</dt><dd>Arroyo de la Miel<small>Endereço exato enviado a quem reservar</small></dd></div>
+      <div class="fact"><dt>Vagas</dt><dd>Grupo de 12 mulheres<small>Já temos 4 confirmadas. Restam 8 vagas e, depois delas, lista de espera.</small></dd></div>
+      <div class="fact"><dt>Valores</dt><dd><span class="number">€10</span> de reserva da vaga<small>O café do dia, cada uma paga o seu</small></dd></div>
+    </dl>
+    <a class="btn" id="cta-top" href="https://wa.me/34687480445?text=Oi%2C%20Andrea!%20Quero%20reservar%20minha%20vaga%20no%20Caf%C3%A9%20com%20Coragem%20de%205%20de%20dezembro." rel="noopener">Reservar minha vaga pelo WhatsApp</a>
+    <p class="muted">Se o botão não abrir, escreva para <span class="number">+34 687 480 445</span>.</p>
+  </header>
+
+  <section class="section">
+    <h2>O que acontece no café</h2>
+    <ul class="items">
+      <li><strong>Um tempo para olhar o seu momento</strong><span>Onde você está hoje na vida e no trabalho, com espaço para observar sem pressa.</span></li>
+      <li><strong>Seu próximo passo</strong><span>O que vem a seguir e o que você precisa ter de pé para dar esse passo.</span></li>
+      <li><strong>Conversa entre brasileiras</strong><span>Trocar com outras mulheres que estão construindo a vida aqui na Costa del Sol.</span></li>
+      <li><strong>Material de apoio</strong><span>Para as suas reflexões depois do encontro.</span></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Como reservar</h2>
+    <ol class="steps">
+      <li><p>Clique e reserve.</p></li>
+      <li><p>Responda a três perguntas rápidas: nome completo, o que você faz e se autoriza fotos do encontro.</p></li>
+      <li><p>Faça a transferência de €10 com os dados que eu envio. A vaga fica confirmada quando chega o comprovante.</p></li>
+      <li><p>Com a vaga confirmada, você entra no grupo do café, onde chegam o endereço exato e a orientação para se preparar antes do encontro.</p></li>
+    </ol>
+  </section>
+
+  <section class="price" aria-label="Valores">
+    <div class="amount number">€10</div>
+    <p><strong>Reserva da vaga, por transferência.</strong> Se não puder vir, você pode passar a vaga para outra pessoa.</p>
+    <p><strong>O café do dia, cada uma paga o seu.</strong></p>
+  </section>
+
+  <section class="section">
+    <h2>Quem conduz</h2>
+    <p><strong>Andrea Salgueirinho</strong>, escritora e pesquisadora brasileira, pós-graduada em Neurociência, Psicologia Positiva e Mindfulness pela PUC-PR, à frente da Escola da Coragem desde 2019.</p>
+  </section>
+
+  <section class="section">
+    <a class="btn" id="cta-bottom" href="https://wa.me/34687480445?text=Oi%2C%20Andrea!%20Quero%20reservar%20minha%20vaga%20no%20Caf%C3%A9%20com%20Coragem%20de%205%20de%20dezembro." rel="noopener">Reservar minha vaga pelo WhatsApp</a>
+  </section>
+
+  <footer>
+    <p class="muted">O encontro terá registro de fotos. Você decide se aparece.</p>
+    <p class="muted">Coragem Lab</p>
+  </footer>
+
+</main>
+</body>
+</html>
